@@ -1,0 +1,12 @@
+---
+  - name: Add route to server
+    blockinfile:
+      path: /etc/netplan/50-vagrant.yaml
+      insertafter: '      - 192.168.255.10/30'
+      block: |
+        #Insert from ansible
+              routes:
+                - to: 192.168.0.2
+                  via: 192.168.255.2
+  - name: Netplan apply
+    shell: netplan apply
