@@ -1,0 +1,8 @@
+---
+  - name: Download knocking rules
+    template:
+      src: knocking.rules
+      dest: /home/vagrant
+#  - name: Restore knocking rules
+#    shell:
+#      iptables-restore < /home/vagrant/knocking.rules
