@@ -1,0 +1,7 @@
+---
+  - name: Enable masquerade
+    iptables:
+      table: nat
+      chain: POSTROUTING
+      out_interface: enp0s8
+      jump: MASQUERADE
