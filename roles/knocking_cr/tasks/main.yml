@@ -1,0 +1,6 @@
+---
+  - name: Download knocking script
+    template:
+      src: knock.sh
+      dest: /home/vagrant
+      mode: '0755'
