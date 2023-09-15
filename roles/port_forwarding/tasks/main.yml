@@ -1,0 +1,48 @@
+---
+  - name: Enable prerouting
+    iptables:
+      table: nat
+      chain: PREROUTING
+      in_interface: enp0s8
+      protocol: tcp
+      destination_port: 80
+      to_destination: 192.168.0.2
+      jump: DNAT
+  - name: Enable postrouting
+    iptables:
+      table: nat
+      chain: POSTROUTING
+      out_interface: enp0s9
+      protocol: tcp
+      destination: 192.168.0.2
+      destination_port: 80
+      to_source: 192.168.254.1
+      jump: SNAT
+  - name: Allow tcp syn connect
+    iptables:
+      chain: FORWARD
+      in_interface: enp0s8
+      out_interface: enp0s9
+      protocol: tcp
+      syn: match
+      destination_port: 80
+      match: conntrack
+      ctstate: NEW
+      jump: ACCEPT
+  - name: Allow connect enp0s8 to enp0s9
+    iptables:
+      chain: FORWARD
+      in_interface: enp0s8
+      out_interface: enp0s9
+      match: conntrack
+      ctstate: ESTABLISHED,RELATED
+      jump: ACCEPT
+  - name: Allow connect enp0s9 to enp0s8
+    iptables:
+      chain: FORWARD
+      in_interface: enp0s9
+      out_interface: enp0s8
+      match: conntrack
+      ctstate: ESTABLISHED,RELATED
+      jump: ACCEPT
+
