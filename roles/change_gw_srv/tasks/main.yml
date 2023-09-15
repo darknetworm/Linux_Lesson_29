@@ -1,0 +1,20 @@
+---
+  - name: Delete default route
+    blockinfile:
+      path: /etc/netplan/50-cloud-init.yaml
+      insertafter: '            dhcp4: true'
+      block: |
+        #Insert from ansible
+                    dhcp4-overrides:
+                        use-routes: false
+  - name: Add default route
+    blockinfile:
+      path: /etc/netplan/50-vagrant.yaml
+      insertafter: '      - 192.168.0.2/30'
+      block: |
+        #Insert from ansible
+              routes:
+                - to: 0.0.0.0/0
+                  via: 192.168.0.1
+  - name: Netplan apply
+    shell: netplan apply
