@@ -30,5 +30,8 @@
 ![knocking](https://github.com/darknetworm/Linux_Lesson_29/assets/82410807/29644c5e-7a58-45bf-b63d-505f996e868c)
 С помощью утилиты nmap наблюдаем последовательное прохождение запросов по определенным портам на подключение по ssh к inetrouter.
 
+> [!IMPORTANT]
+> Последовательность прохождения портов должна быть в строгом соответствии с настройками в файле knocking.rules
+
 Для проверки проброса портов до centralrouter с локальной машины в браузере вводим http запрос на host-only адрес inetrouter2 (192.168.56.10:8080)
 ![webpage](https://github.com/darknetworm/Linux_Lesson_29/assets/82410807/8a052898-82c3-4bd3-9f2e-e258f8eea0b9)
