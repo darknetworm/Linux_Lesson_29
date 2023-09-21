@@ -26,7 +26,7 @@
 
 Для проверки port knocking необходимо подключиться по ssh к centralrouter и ввести команду:  
 
-                ./knock.sh 192.168.255.1 9988 8877 7766
+    ./knock.sh 192.168.255.1 9988 8877 7766
 ![knocking](https://github.com/darknetworm/Linux_Lesson_29/assets/82410807/29644c5e-7a58-45bf-b63d-505f996e868c)
 С помощью утилиты nmap наблюдаем последовательное прохождение запросов по определенным портам на подключение по ssh к inetrouter.
 
