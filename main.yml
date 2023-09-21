@@ -1,54 +1,69 @@
 ---
+#Общие для всех сетевых устройств задачи
   - name: Task for all
     hosts: all
     become: true
+#Обновление репозитория
     tasks:
     - name: Update cache
       apt:
         update_cache: yes
         cache_valid_time: 6000
+#Установка утилиты traceroute
     - name: Install traceroute
       apt:
         name: traceroute
         state: present
-
+#Общие задачи для всех маршрутизаторов
   - name: Task for all routers
     hosts: routers
     become: true
     tasks:
+#Включение форвардинга пакетов
     - name: Enable forwarding  
       sysctl:
         name: net.ipv4.ip_forward
         value: "1"
         state: present
-
+#Настройка шлюза для сети интернет
   - name: Setup internet router
     hosts: inetrouter
     become: true
     roles:
+#Настройка доступа к сети интернет
       - role: web_access
+#Настройка маршрутизации
       - role: change_gw_ir
+#Настройка port knocking
       - role: knocking_ir
-
+#Настройка шлюза проброса портов в host-only сеть
   - name: Setup internet router 2
     hosts: inetrouter2
     become: true
     roles:
+#Включение проброса портов
       - role: port_forwarding
+#Изменение конфигурации шлюза по умолчанию и настройка маршрутизации
       - role: change_gw_ir2
-
+#Настройка центрального маршрутизатора
   - name: Setup central router
     hosts: centralrouter
     become: true
     roles:
+#Установка утилиты nmap
       - role: inst_nmap
+#Настройка NAT
       - role: nat_enable
+#Изменение конфигурации шлюза по умолчанию и настройка маршрутизации
       - role: change_gw_cr
+#Настройка port knocking
       - role: knocking_cr
-
+#Настройка центрального сервера
   - name: Setup central server
     hosts: servers
     become: true
     roles:
+#Установка http сервера nginx
       - role: inst_nginx
+#Изменение конфигурации шлюза по умолчанию
       - role: change_gw_srv
